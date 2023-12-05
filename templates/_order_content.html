@@ -1,0 +1,19 @@
+<table>
+    <tr>
+        <td>Product:</td>
+        <td>Quantity:</td>
+        <td>Price:</td>
+    </tr>
+    {% for product in order.ordercontent_set.all %}
+        <tr>
+            <td>{{ product.item }}</td>
+            <td>{{ product.quantity }}</td>
+            <td>{{ product.item.price_display }}</td>
+        </tr>
+    {% endfor %}
+    <tr>
+        <td>Subtotal:</td>
+        <td></td>
+        <td>{{ order.total }}</td>
+    </tr>
+</table>

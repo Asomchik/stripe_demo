@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
+    <script src="https://js.stripe.com/v3/"></script>
+    <title>{% block title %}{% endblock title %}</title>
+</head>
+<body>
+<div class="container">
+    {% block header %}
+        <header>
+            <p>To see all items/orders - click 'Items'/'Orders' link ih header section below. </p>
+            <p>To go to item/order page - click 'name of Item'/'Order number'.</p>
+            <p>To get to checkout page for item/order use buy button at Item/Order page.</p>
+            <a href="{% url 'catalog' %}">| Items |</a>
+            <a href="{% url 'orders' %}">| Orders |</a>
+        </header>
+    {% endblock header %}
+    {% block content %}
+    {% endblock content %}
+    <br>
+    <br>
+    <br>
+</div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}List of items{% endblock title %}
+
+{% block content %}
+    <h1>List of items.</h1>
+    <p>--------------------------------------------------------</p>
+    {% for item in object_list %}
+        <h3><a href="{{ item.get_absolute_url }}">{{ item.name }}</a></h3>
+        <p>{{ item.description }}</p>
+        <p>Price: {{ item.price_display }}</p>
+        <p>--------------------------------------------------------</p>
+        <br>
+    {% endfor %}
+{% endblock content %}

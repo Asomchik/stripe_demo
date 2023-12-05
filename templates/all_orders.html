@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}List of orders{% endblock title %}
+
+{% block content %}
+    <h1>List of orders.</h1>
+    <form method="get" action="{% url 'create-order' %}">
+        {% csrf_token %}
+        <button type="submit">Create new order</button>
+    </form>
+    <p>--------------------------------------------------------</p>
+    {% for order in object_list %}
+        <h3><a href="{% url 'order' order.id %}">{{ order }}</a></h3>
+        <p>Discount: {{ order.discount }} | Tax: {{ order.tax }} | Currency: {{ order.currency }}</p>
+        {% include '_order_content.html' %}
+        <p>--------------------------------------------------------</p>
+    {% endfor %}
+{% endblock content %}

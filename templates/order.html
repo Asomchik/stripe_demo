@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Buy Order {{ order.id }}{% endblock title %}
+
+{% block content %}
+    <h3>{{ order }}</h3>
+    <p>--------------------------------------------------------------------</p>
+    <form method="post" action="{% url 'apply-order-discount' pk=order.pk %}">
+        {% csrf_token %}
+        {{ order_form.as_p }}
+        <button type="submit">Apply Discont/Tax/Currency</button>
+    </form>
+    <p>--------------------------------------------------------------------</p>
+
+    {% include '_order_content.html' %}
+
+    <p>Add or remove product</p>
+    <form method="post" action="{% url 'add-item-to-order' %}">
+        {% csrf_token %}
+        {{ add_item_form.as_table }}
+        <button type="submit">Change</button>
+    </form>
+    <p>--------------------------------------------------------------------</p>
+
+    <button id="buy-button">Buy this order</button>
+    <script type="text/javascript">
+        let stripe = Stripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
+        let buyButton = document.getElementById('buy-button');
+        buyButton.addEventListener('click', function () {
+            fetch('/buy_order/{{ order.id }}', {method: 'GET'})
+                .then((response) => {
+                    return response.json()
+                })
+                .then(data => stripe.redirectToCheckout({sessionId: data.session_id}))
+        });
+    </script>
+{% endblock content %}
